@@ -9,7 +9,7 @@ app.use(bodyParser.json({limit : "32mb", extended:true}));
 app.use(bodyParser.urlencoded  ({limit : "32mb", extended:true}));
 app.use(cors());
 
-const MONGO_URI ="mongodb+srv://instaverse:MongoDb@cluster0.feha270.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGO_URI ="mongodb+srv://instaverse:MongoDb@123@cluster0.feha270.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 const PORT = process.env.PORT || 5001;
 
