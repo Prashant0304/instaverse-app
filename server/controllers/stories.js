@@ -24,4 +24,47 @@ const createStory = async (req, res) =>{
     res.status(409).json({message:error.message});
    }
 }
-export {getStories , createStory};
+
+const updateStory = async (req, res) =>{
+   const {id:_id} = req.params;
+
+   const story = req.body;
+   
+   if(!mongoose.Types.ObjectId.isValid(_id)){
+    return res.status(404).sen("This id doesn't belong to any story");
+   }
+   const updatedStory =await Story.findByIdAndUpdate(_id, story, {new :true} );
+   res.json(updatedStory)
+}
+
+const deleteStory = async (req, res) =>{
+   const {id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+    return res.status(404).sen("This id doesn't belong to any story");
+   }
+
+   await Story.findByIdAndRemove(id);
+
+   res.json({message: "Story deleted succcessfully"});
+
+}
+
+const likeStory = async (req, res) =>{
+   const {id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+    return res.status(404).sen("This id doesn't belong to any story");
+   }
+
+   const story = await Story.findById(id);
+
+   const updateStory = await Story.findByIdAndUpdate(id,{likes: story.likes+1},{new :true});
+   res.json(updateStory)
+
+}
+
+
+
+export {getStories , createStory, updateStory, deleteStory,likeStory};
+  

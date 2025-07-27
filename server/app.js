@@ -2,8 +2,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from "dotenv";
 import storyRoutes from "./routes/stories.js";
+
 const app = express();
+dotenv.config();
 
 app.use(bodyParser.json({limit : "32mb", extended:true}));
 app.use(bodyParser.urlencoded  ({limit : "32mb", extended:true}));
@@ -11,7 +14,7 @@ app.use(cors());
 
 app.use("/stories",storyRoutes);
 
-const MONGO_URI ="mongodb+srv://instaverse:MongoDb@cluster0.feha270.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 5001;
 
 const connectDB = async () =>{
@@ -26,6 +29,6 @@ const connectDB = async () =>{
 
 connectDB();
 
-mongoose.connection.on("open",()=>console.log("Connection to database has been established successfully"));
+mongoose.connection.on("open", () =>console.log("Connection to database has been established successfully"));
 
-mongoose.connection.on("error",(err)=>console.log("err")); 
+mongoose.connection.on("error", (err) =>console.log("err")); 
