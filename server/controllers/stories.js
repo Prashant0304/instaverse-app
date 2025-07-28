@@ -14,8 +14,11 @@ const getStories = async (req,res) =>{
 
 const createStory = async (req, res) =>{
    const body = req.body;
+   
    const newStory = new Story({
-    ...body
+      ...body,
+      userId: req.userId,
+      postDate : new Date().toISOString()
    });
     try{
       await newStory.save();

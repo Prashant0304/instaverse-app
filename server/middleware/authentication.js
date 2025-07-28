@@ -8,7 +8,7 @@ const authentication = async(req, res, next) =>{
         if(token){
             let decodedData = jwt.verify(token, "1234");
             
-            req.userId = decodedData?.indexOf;
+            req.userId = decodedData?.id;
         }
         
         next();
